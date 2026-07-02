@@ -59,6 +59,8 @@ function generate() {
     節氣：${calendar.solarTerm.name}（${calendar.solarTerm.date}）<br>
     三元：${calendar.yuan}<br>
     局數：${calendar.juDisplay}
+    旬首：${calendar.xunShou}<br>
+    旬首六儀：${calendar.xunShouStem}<br>
   `;
 
   fillDemoPlate();
