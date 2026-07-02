@@ -1,4 +1,7 @@
 function generateQimenPlate(calendar) {
+  const earthPlate = getEarthPlate(calendar.ju, calendar.dun);
+  const heavenPlate = getHeavenPlate(earthPlate, calendar);
+
   const palaces = PALACE_DATA.map(palace => {
     return {
       number: palace.num,
@@ -8,8 +11,9 @@ function generateQimenPlate(calendar) {
       element: palace.element,
       special: palace.special || "",
 
-      heavenStem: "--",
-      earthStem: "--",
+      heavenStem: heavenPlate[palace.num] || "--",
+      earthStem: earthPlate[palace.num] || "--",
+
       star: "--",
       door: "--",
       god: "--",
