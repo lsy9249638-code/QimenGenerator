@@ -12,18 +12,6 @@ const palaces = [
   { num: 6, name: "乾六宮", direction: "西北" }
 ];
 
-const stems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
-const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-
-const sixtyJiaZi = [
-  "甲子","乙丑","丙寅","丁卯","戊辰","己巳","庚午","辛未","壬申","癸酉",
-  "甲戌","乙亥","丙子","丁丑","戊寅","己卯","庚辰","辛巳","壬午","癸未",
-  "甲申","乙酉","丙戌","丁亥","戊子","己丑","庚寅","辛卯","壬辰","癸巳",
-  "甲午","乙未","丙申","丁酉","戊戌","己亥","庚子","辛丑","壬寅","癸卯",
-  "甲辰","乙巳","丙午","丁未","戊申","己酉","庚戌","辛亥","壬子","癸丑",
-  "甲寅","乙卯","丙辰","丁巳","戊午","己未","庚申","辛酉","壬戌","癸亥"
-];
-
 function initBoard() {
   const board = document.getElementById("qimenBoard");
   board.innerHTML = "";
@@ -59,70 +47,20 @@ function generate() {
   }
 
   const dateTime = new Date(`${dateValue}T${timeValue}:00`);
-
-  const yearGanZhi = getYearGanZhi(dateTime);
-  const dayGanZhi = getDayGanZhi(dateTime);
-  const hourGanZhi = getHourGanZhi(dateTime, dayGanZhi);
+  const calendar = getCalendarInfo(dateTime);
 
   document.getElementById("info").innerHTML = `
     <strong>排盤資料</strong><br>
     公曆：${dateValue} ${timeValue}<br>
-    年柱：${yearGanZhi}<br>
-    月柱：下一課加入節氣後計算<br>
-    日柱：${dayGanZhi}<br>
-    時柱：${hourGanZhi}<br>
-    下一課：二十四節氣與月柱
+    年柱：${calendar.yearGanZhi}<br>
+    月柱：${calendar.monthGanZhi}<br>
+    日柱：${calendar.dayGanZhi}<br>
+    時柱：${calendar.hourGanZhi}<br>
+    節氣：${calendar.solarTerm.name}（${calendar.solarTerm.date}）<br>
+    遁法：${calendar.dun}遁
   `;
 
   fillDemoPlate();
-}
-
-function getYearGanZhi(date) {
-  const year = date.getFullYear();
-
-  // 目前先以立春前後不切換，下一課加入節氣後修正
-  const stemIndex = (year - 4) % 10;
-  const branchIndex = (year - 4) % 12;
-
-  return stems[stemIndex] + branches[branchIndex];
-}
-
-function getDayGanZhi(date) {
-  // 以 1900-01-31 為甲辰日作為基準
-  const baseDate = new Date("1900-01-31T00:00:00");
-  const diffDays = Math.floor((date - baseDate) / (1000 * 60 * 60 * 24));
-
-  const index = ((diffDays + 40) % 60 + 60) % 60;
-
-  return sixtyJiaZi[index];
-}
-
-function getHourBranch(hour) {
-  if (hour === 23 || hour === 0) return "子";
-
-  const index = Math.floor((hour + 1) / 2) % 12;
-  return branches[index];
-}
-
-function getHourGanZhi(date, dayGanZhi) {
-  const hour = date.getHours();
-  const hourBranch = getHourBranch(hour);
-
-  const dayStem = dayGanZhi.charAt(0);
-  const dayStemIndex = stems.indexOf(dayStem);
-
-  let startStemIndex;
-
-  if (dayStemIndex === 0 || dayStemIndex === 5) startStemIndex = 0; // 甲己日起甲子
-  if (dayStemIndex === 1 || dayStemIndex === 6) startStemIndex = 2; // 乙庚日起丙子
-  if (dayStemIndex === 2 || dayStemIndex === 7) startStemIndex = 4; // 丙辛日起戊子
-  if (dayStemIndex === 3 || dayStemIndex === 8) startStemIndex = 6; // 丁壬日起庚子
-  if (dayStemIndex === 4 || dayStemIndex === 9) startStemIndex = 8; // 戊癸日起壬子
-
-  const branchIndex = branches.indexOf(hourBranch);
-  const hourStemIndex = (startStemIndex + branchIndex) % 10;
-
-  return stems[hourStemIndex] + hourBranch;
 }
 
 function fillDemoPlate() {
@@ -140,6 +78,7 @@ function fillDemoPlate() {
 
   Object.keys(demoData).forEach(num => {
     const p = demoData[num];
+
     document.getElementById(`palace-${num}`).innerHTML = `
       <div class="palace-title">${getPalaceName(num)}</div>
       <div class="palace-direction">${getPalaceDirection(num)}</div>
