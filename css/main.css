@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  background: #0f172a;
+  color: white;
+  font-family: "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+}
+
+.container {
+  width: 1100px;
+  margin: auto;
+  padding-top: 30px;
+}
+
+h1 {
+  text-align: center;
+  color: #ffd700;
+}
+
+.input-box {
+  margin-top: 25px;
+  text-align: center;
+}
+
+input {
+  padding: 10px;
+  font-size: 18px;
+  margin: 10px;
+}
+
+button {
+  padding: 10px 30px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 6px;
+}
+
+button:hover {
+  background: #b91c1c;
+}
+
+#info {
+  margin: 25px auto;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.8;
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  width: 650px;
+}
+
+.qimen-board {
+  width: 900px;
+  height: 900px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  border: 3px solid #facc15;
+}
+
+.palace {
+  border: 1px solid #facc15;
+  background: #111827;
+  padding: 12px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.palace-title {
+  color: #facc15;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.palace-direction {
+  color: #93c5fd;
+  font-size: 16px;
+}
+
+.item {
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+.stem {
+  color: #fef08a;
+}
+
+.star {
+  color: #bfdbfe;
+}
+
+.door {
+  color: #86efac;
+}
+
+.god {
+  color: #fca5a5;
+}
