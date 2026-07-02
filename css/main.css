@@ -101,3 +101,11 @@ button:hover {
 .god {
   color: #fca5a5;
 }
+
+.fly-number {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  font-size: 20px;
+  color: white;
+}

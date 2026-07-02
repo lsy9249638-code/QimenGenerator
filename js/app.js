@@ -63,7 +63,8 @@ function generate() {
     旬首六儀：${calendar.xunShouStem}<br>
   `;
 
-  fillDemoPlate();
+  const plate = generateQimenPlate(calendar);
+drawPlate(plate);
 }
 
 function fillDemoPlate() {
@@ -104,3 +105,31 @@ function getPalaceDirection(num) {
 }
 
 initBoard();
+
+function drawPlate(plate) {
+  plate.palaces.forEach(p => {
+    const palaceDiv = document.getElementById(`palace-${p.number}`);
+
+    palaceDiv.innerHTML = `
+      <div class="palace-title">${p.name}</div>
+      <div class="palace-direction">${p.branches || p.direction}</div>
+
+      ${p.special ? `<div class="item">${p.special}</div>` : ""}
+
+      <div class="item stem">天盤：${p.heavenStem}</div>
+
+      ${
+        p.number === 5
+          ? `<div class="item star">九星：${p.star}</div>`
+          : `
+            <div class="item stem">地盤：${p.earthStem}</div>
+            <div class="item star">九星：${p.star}</div>
+            <div class="item door">八門：${p.door}</div>
+            <div class="item god">八神：${p.god}</div>
+          `
+      }
+
+      <div class="fly-number">${p.flyNumber}</div>
+    `;
+  });
+}
