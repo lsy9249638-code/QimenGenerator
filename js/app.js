@@ -50,6 +50,7 @@ function generate() {
     局數：${calendar.juDisplay}<br>
     旬首：${calendar.xunShou}<br>
     旬首六儀：${calendar.xunShouStem}<br>
+    值符：${plate.info.zhiFuStar}（${plate.info.zhiFuPalace}宮）<br>
   `;
 
   drawPlate(plate);
