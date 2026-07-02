@@ -57,7 +57,8 @@ function generate() {
     日柱：${calendar.dayGanZhi}<br>
     時柱：${calendar.hourGanZhi}<br>
     節氣：${calendar.solarTerm.name}（${calendar.solarTerm.date}）<br>
-    遁法：${calendar.dun}遁
+    三元：${calendar.yuan}<br>
+    局數：${calendar.juDisplay}
   `;
 
   fillDemoPlate();

@@ -3,14 +3,18 @@ function getCalendarInfo(date) {
   const dayGanZhi = getDayGanZhi(date);
   const hourGanZhi = getHourGanZhi(date, dayGanZhi);
   const solarTerm = getSolarTerm(date);
+  const juInfo = getJuInfo(solarTerm.name, dayGanZhi);
 
   return {
     solarDate: date,
     yearGanZhi,
-    monthGanZhi: "下一课加入",
+    monthGanZhi: "下一課加入",
     dayGanZhi,
     hourGanZhi,
     solarTerm,
-    dun: getDunBySolarTerm(solarTerm.name)
+    dun: juInfo.dun,
+    yuan: juInfo.yuan,
+    ju: juInfo.ju,
+    juDisplay: juInfo.display
   };
 }
